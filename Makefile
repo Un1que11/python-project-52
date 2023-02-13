@@ -20,4 +20,4 @@ dev:
 		poetry run python manage.py runserver
 
 start:
-		poetry run gunicorn hexlet_django_blog.wsgi
+		poetry run gunicorn task_manager.wsgi
