@@ -11,11 +11,7 @@ SECRET_KEY = os.getenv('SECRET')
 
 DEBUG = os.getenv('DEBUG', 'False')
 
-ALLOWED_HOSTS = [
-    'webserver',
-    '127.0.0.1',
-    'python-project-52-production-2881.up.railway.app',
-]
+ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
