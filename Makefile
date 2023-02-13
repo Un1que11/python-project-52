@@ -18,3 +18,6 @@ coverage:
 
 dev:
 		poetry run python manage.py runserver
+
+start:
+		poetry run gunicorn hexlet_django_blog.wsgi
