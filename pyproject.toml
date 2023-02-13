@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "hexlet-code"
+version = "0.1.0"
+description = "Task Manager is a task management system. It allows you to set tasks, assign performers, and change their statuses."
+authors = ["Mikhail Orlov <crazyminer398@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "task_manager" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.6"
+dj-database-url = "^1.2.0"
+python-dotenv = "^0.21.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
