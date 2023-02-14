@@ -53,6 +53,8 @@ TEMPLATES = [
     },
 ]
 
+LOCALE_PATHS = (BASE_DIR / 'locale/',)
+
 WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 
