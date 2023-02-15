@@ -53,7 +53,7 @@ TEMPLATES = [
     },
 ]
 
-LOCALE_PATHS = (BASE_DIR / 'locale/',)
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'), )
 
 WSGI_APPLICATION = 'task_manager.wsgi.application'
 
@@ -82,7 +82,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
