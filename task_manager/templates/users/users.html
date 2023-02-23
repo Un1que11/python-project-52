@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block main %}
+<h1 class="my-4">{% trans "Users" %}</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>{% trans "User name" %}</th>
+            <th>{% trans "Full name" %}</th>
+            <th>{% trans "Date of creation" %}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if users %}
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.date_joined }}</td>
+            <td>
+              <a href="{% url 'update' user.pk %}">{% trans "Update" %}</a>
+              <br>
+              <a href="{% url 'delete' user.pk %}">{% trans "Delete" %}</a>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}
