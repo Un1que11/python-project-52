@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 21:04+0300\n"
+"POT-Creation-Date: 2023-02-28 00:12+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,47 +28,62 @@ msgstr "Менеджер задач Hexlet"
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/base.html:25
-#: task_manager/templates/users/users.html:5
+#: task_manager/templates/base.html:25 task_manager/templates/users/show.html:5
 msgid "Users"
 msgstr "Пользователи"
 
-#: task_manager/templates/base.html:32
+#: task_manager/templates/base.html:32 task_manager/templates/base.html:42
 msgid "Sign in"
 msgstr "Вход"
 
-#: task_manager/templates/base.html:35
+#: task_manager/templates/base.html:35 task_manager/templates/base.html:43
 msgid "Sign up"
 msgstr "Регистрация"
 
-#: task_manager/templates/index.html:16
+#: task_manager/templates/base.html:47
+msgid "Logout"
+msgstr "Выход"
+
+#: task_manager/templates/index.html:10
 msgid "Hello from Hexlet!"
 msgstr "Привет от Хекслета!"
 
-#: task_manager/templates/index.html:17
+#: task_manager/templates/index.html:11
 msgid "Practical programming courses"
 msgstr "Практические курсы по программированию"
 
-#: task_manager/templates/index.html:19
+#: task_manager/templates/index.html:13
 msgid "Learn more"
 msgstr "Узнать больше"
 
-#: task_manager/templates/users/users.html:10
+#: task_manager/templates/users/register.html:8
+msgid "Registration"
+msgstr "Регистрация"
+
+#: task_manager/templates/users/register.html:12
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: task_manager/templates/users/show.html:10
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: task_manager/templates/users/users.html:11
+#: task_manager/templates/users/show.html:11
 msgid "Full name"
 msgstr "Полное имя"
 
-#: task_manager/templates/users/users.html:12
+#: task_manager/templates/users/show.html:12
 msgid "Date of creation"
 msgstr "Дата создания"
 
-#: task_manager/templates/users/users.html:25
+#: task_manager/templates/users/show.html:25
 msgid "Update"
 msgstr "Изменить"
 
-#: task_manager/templates/users/users.html:27
+#: task_manager/templates/users/show.html:27
 msgid "Delete"
 msgstr "Удалить"
+
+#: task_manager/users/forms.py:10
+msgid "<ul><li>Your password must contain at least 3 characters.</li></ul>"
+msgstr "<ul><li>Ваш пароль должен содержать как минимум 3 символа.</li></ul>"
