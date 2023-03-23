@@ -8,6 +8,8 @@ from task_manager.users.models import User
 class NewUserCreationForm(UserCreationForm):
     password1 = forms.CharField(
         label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         help_text=_('<ul><li>'
                     'Your password must contain at least 3 characters.'
                     '</li></ul>'),
