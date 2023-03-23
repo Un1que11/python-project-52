@@ -5,11 +5,11 @@
 
 {% block main %}
 <div class="container wrapper flex-grow-1">
-    <h1 class="my-4">{% trans 'Registration' %}</h1>
+    <h1 class="my-4">{% trans "Registration" %}</h1>
     <form method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">{% trans 'Register' %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Register" %}</button>
     </form>
 </div>
 {% endblock %}

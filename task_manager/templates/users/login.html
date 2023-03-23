@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block main %}
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">{% trans "Login" %}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
+    </form>
+</div>
+{% endblock %}
