@@ -13,7 +13,7 @@ reinstall:
 dev:
 		poetry run python manage.py runserver
 
-start:
+start: migrate
 		poetry run gunicorn task_manager.wsgi
 
 migrate:
