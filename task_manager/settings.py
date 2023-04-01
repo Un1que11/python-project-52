@@ -112,3 +112,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF = os.getenv('HTTPS', None)
+if CSRF:
+    CSRF_TRUSTED_ORIGINS = ['python-project-52-production-2881.up.railway.app']
