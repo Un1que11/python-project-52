@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import dj_database_url
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,7 +10,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET')
 
-DEBUG = os.getenv('DEBUG', 'False')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -65,6 +66,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+db_from_env = dj_database_url.config(
+        conn_max_age=60
+        )
+DATABASES['default'].update(db_from_env)
 
 
 AUTH_PASSWORD_VALIDATORS = [
