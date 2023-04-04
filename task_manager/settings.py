@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'task_manager',
     'bootstrap4',
     'task_manager.users'
 ]
@@ -67,10 +66,8 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-
 if not DEBUG:
-    DATABASES['default'].update(db_from_env)
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 AUTH_PASSWORD_VALIDATORS = [
