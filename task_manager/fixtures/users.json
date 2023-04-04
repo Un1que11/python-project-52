@@ -1,0 +1,29 @@
+{
+    "new": {
+        "id": 1,
+        "first_name": "Mikhail",
+        "last_name": "Orlov",
+        "username": "orrrlovvv",
+        "password": "jgdjfgjda$*j123"
+    },
+    "updated_user": {
+        "first_name": "Misha",
+        "last_name": "Mask",
+        "username": "Bear",
+        "password1": "5001@jagsdfuuewq",
+        "password2": "5001@jagsdfuuewq"
+    },
+    "tester": {
+        "first_name": "Kostuya",
+        "last_name": "Petrov",
+        "username": "PetyaKostik",
+        "password1": "6633ldvp",
+        "password2": "6633ldvp"
+    },
+    "existing": {
+        "username": "ElonMask",
+        "password": "9910jfasdlf",
+        "first_name": "Elon",
+        "last_name": "Mask"
+    }
+}
