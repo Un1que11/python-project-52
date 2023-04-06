@@ -66,9 +66,17 @@ DATABASES = {
     }
 }
 
-# if not DEBUG:
-#     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-
+if not DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('NAME'),
+            'USER': os.getenv('USER'),
+            'PASSWORD': os.getenv('PASSWORD'),
+            'HOST': os.getenv('HOST'),
+            'PORT': os.getenv('PORT'),
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
