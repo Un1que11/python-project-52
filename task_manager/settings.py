@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-import dj_database_url
+# import dj_database_url
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -58,12 +58,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task_manager.wsgi.application'
 
-DATABASES = {
-    'default': dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    ),
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     ),
+# }
 
 # DATABASES = {
 #     'default': {
@@ -73,16 +73,16 @@ DATABASES = {
 # }
 
 # if not DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': os.getenv('NAME'),
-#             'USER': os.getenv('USER'),
-#             'PASSWORD': os.getenv('PASSWORD'),
-#             'HOST': os.getenv('HOST'),
-#             'PORT': os.getenv('PORT'),
-#         }
-#     }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
