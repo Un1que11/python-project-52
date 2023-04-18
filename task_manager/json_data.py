@@ -4,6 +4,7 @@ import json
 
 FILES = {
         'users': 'users.json',
+        'statuses': 'statuses.json',
 }
 
 
