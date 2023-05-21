@@ -6,7 +6,8 @@ The training project "Task Manager" on the Python Development course on [Hexlet.
 [![Actions Status](https://github.com/Un1que11/python-project-52/workflows/hexlet-check/badge.svg)](https://github.com/Un1que11/python-project-52/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/efa05876d1635d2f3e0d/maintainability)](https://codeclimate.com/github/Un1que11/python-project-52/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/efa05876d1635d2f3e0d/test_coverage)](https://codeclimate.com/github/Un1que11/python-project-52/test_coverage)
-[![tests](https://github.com/Un1que11/python-project-52/actions/workflows/test-checker.yml/badge.svg?branch=main)](https://github.com/IgorGakhov/python-project-52/actions/workflows/test-checker.yml)
+[![tests](https://github.com/Un1que11/python-project-52/actions/workflows/test-checker.yml/badge.svg?branch=main)](https://github.com/Un1que11/python-project-52/actions/workflows/test-checker.yml)
+[![linter](https://github.com/Un1que11/python-project-52/actions/workflows/linter-checker.yml/badge.svg?branch=main)](https://github.com/Un1que11/python-project-52/actions/workflows/linter-checker.yml)
 
 ### Dependencies
 List of dependencies, without which the project code will not work correctly:
