@@ -1,5 +1,16 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.db.models.base import Model
+from typing import Union, Sequence, Callable, TypeVar, Any
+
 from .models import User
 
-admin.site.register(User, UserAdmin)
+
+_ModelT = TypeVar("_ModelT", bound=Model)
+
+
+class UsersAdmin(admin.ModelAdmin):
+    list_display: Sequence[Union[str, Callable[[_ModelT], Any]]] = \
+        ['id', 'username', 'first_name', 'last_name', 'email']
+
+
+admin.site.register(User, UsersAdmin)

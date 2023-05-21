@@ -1,0 +1,74 @@
+{% extends "components/base.html" %}
+
+{% load i18n %}
+
+{% block description %}{{ page_description }}{% endblock %}
+{% block title %}{{ page_title }} | {% translate "Task Manager" %}{% endblock %}
+
+{% block content %}
+<h1 class="my-4">{{ page_h1 }}</h1>
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h2>{{ task.name }}</h2>
+    </div>
+    <div class="card-body bg-light">
+        <p>{% trans "TASK ID" %} #{{ task.id }}</p>
+        <hr>
+        <div class="container">
+            <div class="row p-2">
+                <div class="col">{% trans "Author" %}</div>
+                <div class="col">{{ task.author }}</div>
+            </div>
+            <div class="row p-2">
+                <div class="col">{% trans "Executor" %}</div>
+                <div class="col">{{ task.executor }}</div>
+            </div>
+            <div class="row p-2">
+                <div class="col">{% trans "Status" %}</div>
+                <div class="col">{{ task.status }}</div>
+            </div>
+            <div class="row p-2">
+                <div class="col">{% trans "Created at" %}</div>
+                <div class="col">{{ task.date_created }}</div>
+            </div>
+            {% if task.date_created|date:"d.m.Y H:i" != task.date_modified|date:"d.m.Y H:i" %}
+                <div class="row p-2">
+                    <div class="col">{% trans "Modified at" %}</div>
+                    <div class="col">{{ task.date_modified }}</div>
+                </div>
+            {% endif %}
+            <div class="row p-2">
+                <div class="col"><h6>{% trans 'Labels' %}:</h6>
+                    <ul>
+                        {% for label in task.labels.all %}
+                            <li>{{ label.name }}</li>
+                            {% empty %}
+                                <div class="font-italic">&#128194; {% translate "No labels" %}</div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col">{% trans "Description" %}</div>
+            </div>
+            <div class="border border-secondary rounded w-100 h-50 p-3">{{ task.description|linebreaksbr }}</div>
+            <br><br><br>
+            <div class="row p-2">
+                <div class="col">
+                    <a class="btn btn-info btn-sm mr-2" href="{% url 'task_update' task.id %}">
+                        {% translate "Update" %}</button>
+                    </a>
+                    {% if user.id == task.author.id %}
+                        <a class="btn btn-danger btn-sm" href="{% url 'task_delete' task.id %}">
+                    {% else %}
+                        <a class="btn btn-danger btn-sm disabled" href="{% url 'task_delete' task.id %}">
+                    {% endif %}
+                        {% translate "Delete" %}</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

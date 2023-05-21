@@ -1,9 +1,0 @@
-{
-    "existing": {
-        "pk": 15,
-        "name": "On going"
-    },
-    "new": {
-        "name": "Done"
-    }
-}

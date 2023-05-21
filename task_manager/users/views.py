@@ -1,69 +1,55 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import AuthenticationForm
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.utils.translation import gettext_lazy as _
+from django.forms import BaseForm
+from typing import Dict, Any, Union, Callable, Type
 
-from .utils import UserPermissionsMixin, LoginRequiredMessageMixin
-from .forms import NewUserCreationForm
+from .models import User
+from .forms import UserRegistrationForm, UserEditingForm
+from .constants import REVERSE_USERS, REVERSE_LOGIN, \
+    CONTEXT_LIST, CONTEXT_CREATE, CONTEXT_UPDATE, CONTEXT_DELETE, \
+    MSG_REGISTERED, MSG_UPDATED, MSG_DELETED, MSG_UNPERMISSION_TO_MODIFY, \
+    USER_USED_IN_TASK
+from ..mixins import ModifyPermissionMixin, DeletionProtectionMixin
 
 
-class UserListView(ListView):
-    model = get_user_model()
-    template_name = 'users/show.html'
-    context_object_name = 'users'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+class UsersListView(ListView):
+    '''Show the list of users.'''
+    model: Type[User] = User
+    context_object_name: str = 'users'
+    extra_context: Dict = CONTEXT_LIST
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
-    form_class = NewUserCreationForm
-    template_name = 'users/register.html'
-    success_url = reverse_lazy('login')
-    success_message = _('User successfully sign up')
+    '''Create a user.'''
+    model: Type[User] = User
+    extra_context: Dict = CONTEXT_CREATE
+    form_class: Type[BaseForm] = UserRegistrationForm
+    success_url: Union[str, Callable[..., Any]] = REVERSE_LOGIN
+    success_message: str = MSG_REGISTERED
 
 
-class UserUpdateView(
-        SuccessMessageMixin,
-        LoginRequiredMessageMixin,
-        UserPermissionsMixin,
-        LoginRequiredMixin,
-        UpdateView
-        ):
-    model = get_user_model()
-    form_class = NewUserCreationForm
-    template_name = 'users/update.html'
-    success_url = reverse_lazy('users-list')
-    success_message = _('User successfully changed')
+class UserUpdateView(ModifyPermissionMixin, LoginRequiredMixin,
+                     SuccessMessageMixin, UpdateView):
+    '''Change a user.'''
+    model: Type[User] = User
+    extra_context: Dict = CONTEXT_UPDATE
+    form_class: Type[BaseForm] = UserEditingForm
+    success_url: Union[str, Callable[..., Any]] = REVERSE_USERS
+    success_message: str = MSG_UPDATED
+    unpermission_url: Union[str, Callable[..., Any]] = REVERSE_USERS
+    unpermission_message: str = MSG_UNPERMISSION_TO_MODIFY
 
 
-class UserDeleteView(
-        SuccessMessageMixin,
-        LoginRequiredMessageMixin,
-        UserPermissionsMixin,
-        LoginRequiredMixin,
-        DeleteView):
-    model = get_user_model()
-    template_name = 'users/delete.html'
-    success_url = reverse_lazy('users-list')
-    success_message = _('User successfully deleted')
-
-
-class LoginUserView(SuccessMessageMixin, LoginView):
-    model = get_user_model()
-    form_class = AuthenticationForm
-    template_name = 'users/login.html'
-    success_message = _('You are logged in')
-
-
-class LogoutUsersView(SuccessMessageMixin, LogoutView):
-    def dispatch(self, request, *args, **kwargs):
-        messages.add_message(request, messages.INFO, _('You are unlogged'))
-        return super().dispatch(request, *args, **kwargs)
+class UserDeleteView(ModifyPermissionMixin, LoginRequiredMixin,
+                     DeletionProtectionMixin, SuccessMessageMixin, DeleteView):
+    '''Delete a user.'''
+    model: Type[User] = User
+    context_object_name: str = 'user'
+    extra_context: Dict = CONTEXT_DELETE
+    success_url: Union[str, Callable[..., Any]] = REVERSE_USERS
+    success_message: str = MSG_DELETED
+    unpermission_url: Union[str, Callable[..., Any]] = REVERSE_USERS
+    unpermission_message: str = MSG_UNPERMISSION_TO_MODIFY
+    protected_data_url: Union[str, Callable[..., Any]] = REVERSE_USERS
+    protected_data_message: str = USER_USED_IN_TASK

@@ -1,0 +1,48 @@
+{% extends "components/base.html" %}
+
+{% load i18n %}
+
+{% block description %}{{ page_description }}{% endblock %}
+{% block title %}{{ page_title }} | {% translate "Task Manager" %}{% endblock %}
+
+{% block content %}
+<h1 class="my-4">{{ page_h1 }}</h1>
+<table class="table">
+    <div class="container">
+        <div class="row mb-4">
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'label_create' %}">{% translate "Create label" %}</a>
+        </div>
+    </div>
+    {% if labels %}
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">{% translate "Label name" %}</th>
+                <th scope="col">{% translate "Creat at" %}</th>
+                <th scope="col">{% translate "Modified at" %}</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for label in labels %}
+                <tr>
+                    <th scope="row">{{ label.id }}</th>
+                    <td>{{ label.name }}</td>
+                    <td>{{ label.date_created|date:"d.m.Y" }}</td>
+                    <td>{{ label.date_modified|date:"d.m.Y" }}</td>
+                    <td>
+                        <a class="btn btn-info btn-sm mr-2" href="{% url 'label_update' label.id %}">
+                            {% translate "Update" %}</button>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'label_delete' label.id %}">
+                            {% translate "Delete" %}</button>
+                        </a>      
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <div class="card-body">{% translate "No labels" %}</div>
+    {% endif %}
+</table>
+{% endblock %}

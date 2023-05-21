@@ -1,0 +1,65 @@
+[
+{
+  "model": "tasks.task",
+  "pk": 1,
+  "fields": {
+    "name": "Get Terms of Reference",
+    "status": 3,
+    "description": "Get cloud disk access from Galya and open the document.",
+    "author": 1,
+    "executor": 2,
+    "date_created": "2022-12-17T15:38:08.538Z",
+    "date_modified": "2022-12-18T07:30:41.462Z"
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 2,
+  "fields": {
+    "name": "Implement functionality",
+    "status": 1,
+    "description": "Write the best and cleanest application code.",
+    "author": 1,
+    "executor": 2,
+    "date_created": "2022-12-17T15:48:57.319Z",
+    "date_modified": "2022-12-18T07:31:03.827Z"
+  }
+},
+{
+  "model": "tasks.task",
+  "pk": 3,
+  "fields": {
+    "name": "Hand over the work to the customer",
+    "status": 1,
+    "description": "Upload the archive with the code to the cloud drive and give access to Galya.",
+    "author": 2,
+    "executor": 1,
+    "date_created": "2022-12-17T16:15:39.220Z",
+    "date_modified": "2022-12-18T07:34:16.794Z"
+  }
+},
+{
+  "model": "tasks.tasklabel",
+  "pk": 1,
+  "fields": {
+    "task": 1,
+    "label": 1
+  }
+},
+{
+  "model": "tasks.tasklabel",
+  "pk": 2,
+  "fields": {
+    "task": 1,
+    "label": 3
+  }
+},
+{
+  "model": "tasks.tasklabel",
+  "pk": 3,
+  "fields": {
+    "task": 2,
+    "label": 1
+  }
+}
+]

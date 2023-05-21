@@ -1,0 +1,586 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-11 21:59+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: task_manager/constants.py:21
+msgid "You are logged in"
+msgstr "Вы залогинены"
+
+#: task_manager/constants.py:22
+msgid "You are logged out"
+msgstr "Вы разлогинены"
+
+#: task_manager/constants.py:24
+msgid "You are not authorized! Please sign in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
+#: task_manager/constants.py:25
+msgid "A task can only be deleted by its author."
+msgstr "Задачу может удалить только её автор."
+
+#: task_manager/labels/constants.py:39 task_manager/labels/constants.py:41
+#: task_manager/tasks/templates/tasks/task_detail.html:42
+#: task_manager/templates/components/navbar.html:17
+msgid "Labels"
+msgstr "Метки"
+
+#: task_manager/labels/constants.py:40
+msgid "List of Task Manager Labels."
+msgstr "Список всех меток Менеджера задач."
+
+#: task_manager/labels/constants.py:43
+msgid "Label creation"
+msgstr "Создание метки"
+
+#: task_manager/labels/constants.py:44
+msgid "Label Creation on Task Manager."
+msgstr "Создание метки в Менеджере задач."
+
+#: task_manager/labels/constants.py:45
+#: task_manager/labels/templates/labels/label_list.html:13
+msgid "Create label"
+msgstr "Создать метку"
+
+#: task_manager/labels/constants.py:47
+msgid "Label editing"
+msgstr "Изменение метки"
+
+#: task_manager/labels/constants.py:48
+msgid "Label editing on Task Manager."
+msgstr "Изменение метки в Менеджере задач."
+
+#: task_manager/labels/constants.py:49
+msgid "Change label"
+msgstr "Обновить метку"
+
+#: task_manager/labels/constants.py:51
+msgid "Label deleting"
+msgstr "Удаление метки"
+
+#: task_manager/labels/constants.py:52
+msgid "Label deleting on Task Manager."
+msgstr "Удаление метки в Менеджере задач."
+
+#: task_manager/labels/constants.py:53
+msgid "Delete label"
+msgstr "Удалить метку"
+
+#: task_manager/labels/constants.py:57
+msgid "Label created successfully"
+msgstr "Метка успешно создана"
+
+#: task_manager/labels/constants.py:58
+msgid "Label changed successfully"
+msgstr "Метка успешно изменена"
+
+#: task_manager/labels/constants.py:59
+msgid "Label deleted successfully"
+msgstr "Метка успешно удалена"
+
+#: task_manager/labels/constants.py:60
+msgid "Can't delete label because it's in use"
+msgstr "Невозможно удалить метку, потому что она используется"
+
+#: task_manager/labels/constants.py:69 task_manager/statuses/constants.py:69
+#: task_manager/tasks/constants.py:79
+msgid "Create"
+msgstr "Создать"
+
+#: task_manager/labels/constants.py:70
+#: task_manager/labels/templates/labels/label_list.html:35
+#: task_manager/statuses/constants.py:70
+#: task_manager/statuses/templates/statuses/status_list.html:35
+#: task_manager/tasks/constants.py:80
+#: task_manager/tasks/templates/tasks/task_detail.html:60
+#: task_manager/tasks/templates/tasks/task_filter.html:48
+#: task_manager/users/templates/users/user_list.html:30
+msgid "Update"
+msgstr "Изменить"
+
+#: task_manager/labels/constants.py:71 task_manager/statuses/constants.py:71
+#: task_manager/tasks/constants.py:81 task_manager/users/constants.py:85
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+#: task_manager/labels/models.py:7 task_manager/statuses/models.py:7
+#: task_manager/tasks/models.py:11
+msgid "name"
+msgstr "имя"
+
+#: task_manager/labels/models.py:11 task_manager/statuses/models.py:11
+#: task_manager/tasks/models.py:40
+msgid "created at"
+msgstr "Дата создания"
+
+#: task_manager/labels/models.py:15 task_manager/statuses/models.py:15
+#: task_manager/tasks/models.py:44
+msgid "modified at"
+msgstr "дата изменения"
+
+#: task_manager/labels/models.py:20
+msgid "label"
+msgstr "метка"
+
+#: task_manager/labels/models.py:21 task_manager/tasks/models.py:49
+msgid "labels"
+msgstr "метки"
+
+#: task_manager/labels/templates/labels/label_confirm_delete.html:6
+#: task_manager/labels/templates/labels/label_form.html:6
+#: task_manager/labels/templates/labels/label_list.html:6
+#: task_manager/statuses/templates/statuses/status_confirm_delete.html:6
+#: task_manager/statuses/templates/statuses/status_form.html:6
+#: task_manager/statuses/templates/statuses/status_list.html:6
+#: task_manager/tasks/templates/tasks/task_confirm_delete.html:6
+#: task_manager/tasks/templates/tasks/task_detail.html:6
+#: task_manager/tasks/templates/tasks/task_filter.html:6
+#: task_manager/tasks/templates/tasks/task_form.html:6
+#: task_manager/templates/index.html:6
+#: task_manager/templates/registration/login.html:6
+#: task_manager/users/templates/users/user_confirm_delete.html:6
+#: task_manager/users/templates/users/user_form.html:6
+#: task_manager/users/templates/users/user_list.html:6
+msgid "Task Manager"
+msgstr "Менеджер задач"
+
+#: task_manager/labels/templates/labels/label_confirm_delete.html:14
+#: task_manager/statuses/templates/statuses/status_confirm_delete.html:14
+#: task_manager/users/templates/users/user_confirm_delete.html:14
+msgid "Are you sure you want to delete"
+msgstr "Вы уверены, что хотите удалить"
+
+#: task_manager/labels/templates/labels/label_confirm_delete.html:16
+#: task_manager/statuses/templates/statuses/status_confirm_delete.html:16
+#: task_manager/tasks/templates/tasks/task_confirm_delete.html:16
+msgid "Go back!"
+msgstr "Вернуться!"
+
+#: task_manager/labels/templates/labels/label_list.html:20
+msgid "Label name"
+msgstr "Название метки"
+
+#: task_manager/labels/templates/labels/label_list.html:21
+#: task_manager/statuses/templates/statuses/status_list.html:21
+#: task_manager/users/templates/users/user_list.html:17
+msgid "Creat at"
+msgstr "Дата регистрации"
+
+#: task_manager/labels/templates/labels/label_list.html:22
+#: task_manager/statuses/templates/statuses/status_list.html:22
+#: task_manager/tasks/templates/tasks/task_detail.html:37
+#: task_manager/tasks/templates/tasks/task_filter.html:33
+msgid "Modified at"
+msgstr "Изменён"
+
+#: task_manager/labels/templates/labels/label_list.html:38
+#: task_manager/statuses/templates/statuses/status_list.html:38
+#: task_manager/tasks/templates/tasks/task_detail.html:67
+#: task_manager/tasks/templates/tasks/task_filter.html:55
+#: task_manager/users/templates/users/user_list.html:33
+msgid "Delete"
+msgstr "Удалить"
+
+#: task_manager/labels/templates/labels/label_list.html:45
+#: task_manager/tasks/templates/tasks/task_detail.html:47
+msgid "No labels"
+msgstr "Нет меток"
+
+#: task_manager/statuses/constants.py:39 task_manager/statuses/constants.py:41
+#: task_manager/templates/components/navbar.html:14
+msgid "Statuses"
+msgstr "Статусы"
+
+#: task_manager/statuses/constants.py:40
+msgid "List of Task Manager Statuses."
+msgstr "Список всех статусов Менеджера задач."
+
+#: task_manager/statuses/constants.py:43
+msgid "Status creation"
+msgstr "Создание статуса"
+
+#: task_manager/statuses/constants.py:44
+msgid "Status Creation on Task Manager."
+msgstr "Создание статуса в Менеджере задач."
+
+#: task_manager/statuses/constants.py:45
+#: task_manager/statuses/templates/statuses/status_list.html:13
+msgid "Create status"
+msgstr "Создать статус"
+
+#: task_manager/statuses/constants.py:47
+msgid "Status editing"
+msgstr "Изменение статуса"
+
+#: task_manager/statuses/constants.py:48
+msgid "Status editing on Task Manager."
+msgstr "Изменение статуса в Менеджере задач."
+
+#: task_manager/statuses/constants.py:49
+msgid "Change Status"
+msgstr "Обновить статус"
+
+#: task_manager/statuses/constants.py:51
+msgid "Status deleting"
+msgstr "Удаление статуса"
+
+#: task_manager/statuses/constants.py:52
+msgid "Status deleting on Task Manager."
+msgstr "Удаление статуса в Менеджере задач."
+
+#: task_manager/statuses/constants.py:53
+msgid "Delete status"
+msgstr "Удалить статус"
+
+#: task_manager/statuses/constants.py:57
+msgid "Status created successfully"
+msgstr "Статус успешно создан"
+
+#: task_manager/statuses/constants.py:58
+msgid "Status changed successfully"
+msgstr "Статус успешно изменён"
+
+#: task_manager/statuses/constants.py:59
+msgid "Status deleted successfully"
+msgstr "Статус успешно удалён"
+
+#: task_manager/statuses/constants.py:60
+msgid "Can't delete status because it's in use"
+msgstr "Невозможно удалить статус, потому что он используется"
+
+#: task_manager/statuses/models.py:20 task_manager/tasks/models.py:24
+msgid "status"
+msgstr "статус"
+
+#: task_manager/statuses/models.py:21
+msgid "statuses"
+msgstr "статусы"
+
+#: task_manager/statuses/templates/statuses/status_list.html:20
+msgid "Status name"
+msgstr "Название"
+
+#: task_manager/statuses/templates/statuses/status_list.html:45
+msgid "No statuses"
+msgstr "Нет статусов"
+
+#: task_manager/tasks/constants.py:42 task_manager/tasks/constants.py:44
+#: task_manager/templates/components/navbar.html:20
+msgid "Tasks"
+msgstr "Задачи"
+
+#: task_manager/tasks/constants.py:43
+msgid "List of Task Manager Tasks."
+msgstr "Список всех задач Менеджера задач."
+
+#: task_manager/tasks/constants.py:46
+msgid "Task creation"
+msgstr "Создание задачи"
+
+#: task_manager/tasks/constants.py:47
+msgid "Task Creation on Task Manager."
+msgstr "Создание задачи в Менеджере задач."
+
+#: task_manager/tasks/constants.py:48
+#: task_manager/tasks/templates/tasks/task_filter.html:22
+msgid "Create task"
+msgstr "Создать задачу"
+
+#: task_manager/tasks/constants.py:50 task_manager/tasks/constants.py:52
+msgid "Task view"
+msgstr "Просмотр задачи"
+
+#: task_manager/tasks/constants.py:51
+msgid "Task detail view on Task Manager."
+msgstr "Просмотр задачи в Менеджере задач."
+
+#: task_manager/tasks/constants.py:54
+msgid "Task editing"
+msgstr "Изменение задачи"
+
+#: task_manager/tasks/constants.py:55
+msgid "Task editing on Task Manager."
+msgstr "Изменение задачи в Менеджере задач."
+
+#: task_manager/tasks/constants.py:56
+msgid "Change task"
+msgstr "Обновить задачу"
+
+#: task_manager/tasks/constants.py:58
+msgid "Task deleting"
+msgstr "Удаление задачи"
+
+#: task_manager/tasks/constants.py:59
+msgid "Task deleting on Task Manager."
+msgstr "Удаление задачи в Менеджере задач."
+
+#: task_manager/tasks/constants.py:60
+msgid "Delete task"
+msgstr "Удалить задачу"
+
+#: task_manager/tasks/constants.py:64
+msgid "Task created successfully"
+msgstr "Задача успешно создана"
+
+#: task_manager/tasks/constants.py:65
+msgid "Task changed successfully"
+msgstr "Задача успешно изменена"
+
+#: task_manager/tasks/constants.py:66
+msgid "Task deleted successfully"
+msgstr "Задача успешно удалена"
+
+#: task_manager/tasks/constants.py:82
+msgid "Search"
+msgstr "Показать"
+
+#: task_manager/tasks/filters.py:15
+msgid "Label"
+msgstr "Метка"
+
+#: task_manager/tasks/filters.py:17
+msgid "Current user tasks"
+msgstr "Только свои задачи"
+
+#: task_manager/tasks/models.py:14
+msgid "Required. 50 characters or fewer."
+msgstr "Обязательно. Не более 50 символов."
+
+#: task_manager/tasks/models.py:18
+msgid "The task name is required."
+msgstr "Название задачи обязательно."
+
+#: task_manager/tasks/models.py:27
+msgid "description"
+msgstr "описание"
+
+#: task_manager/tasks/models.py:32
+msgid "author"
+msgstr "автор"
+
+#: task_manager/tasks/models.py:36
+msgid "executor"
+msgstr "исполнитель"
+
+#: task_manager/tasks/models.py:52
+msgid "You can select multiple labels."
+msgstr "Вы можете выбрать несколько меток"
+
+#: task_manager/tasks/models.py:57
+msgid "task"
+msgstr "задача"
+
+#: task_manager/tasks/models.py:58
+msgid "tasks"
+msgstr "задачи"
+
+#: task_manager/tasks/templates/tasks/task_confirm_delete.html:14
+msgid "Are you sure you want to delete task"
+msgstr "Вы уверены, что хотите удалить задачу"
+
+#: task_manager/tasks/templates/tasks/task_detail.html:16
+msgid "TASK ID"
+msgstr "ID задачи"
+
+#: task_manager/tasks/templates/tasks/task_detail.html:20
+#: task_manager/tasks/templates/tasks/task_filter.html:31
+msgid "Author"
+msgstr "Автор"
+
+#: task_manager/tasks/templates/tasks/task_detail.html:24
+#: task_manager/tasks/templates/tasks/task_filter.html:32
+msgid "Executor"
+msgstr "Исполнитель"
+
+#: task_manager/tasks/templates/tasks/task_detail.html:28
+#: task_manager/tasks/templates/tasks/task_filter.html:30
+msgid "Status"
+msgstr "Статус"
+
+#: task_manager/tasks/templates/tasks/task_detail.html:32
+msgid "Created at"
+msgstr "Дата создания"
+
+#: task_manager/tasks/templates/tasks/task_detail.html:53
+msgid "Description"
+msgstr "Описание"
+
+#: task_manager/tasks/templates/tasks/task_filter.html:29
+msgid "Task name"
+msgstr "Название задачи"
+
+#: task_manager/tasks/templates/tasks/task_filter.html:62
+msgid "No tasks"
+msgstr "Нет релевантных задач"
+
+#: task_manager/templates/components/footer.html:7
+msgid "Source"
+msgstr "Исходный код"
+
+#: task_manager/templates/components/navbar.html:4
+msgid "Task manager"
+msgstr "Менеджер задач"
+
+#: task_manager/templates/components/navbar.html:10
+#: task_manager/users/constants.py:40 task_manager/users/constants.py:42
+msgid "Users"
+msgstr "Пользователи"
+
+#: task_manager/templates/components/navbar.html:30
+msgid "Logout"
+msgstr "Выход"
+
+#: task_manager/templates/components/navbar.html:34
+msgid "Sign Up"
+msgstr "Регистрация"
+
+#: task_manager/templates/components/navbar.html:37
+msgid "Log In"
+msgstr "Вход"
+
+#: task_manager/templates/index.html:5 task_manager/templates/index.html:12
+msgid "Simple and functional task manager."
+msgstr "Простой и функциональный планировщик задач."
+
+#: task_manager/templates/index.html:11
+msgid "Welcome to Task Manager!"
+msgstr "Добро пожаловать в Менеджер задач!"
+
+#: task_manager/templates/index.html:13
+msgid ""
+"It allows you to set tasks, assign performers and change their statuses. "
+"Registration and authentication are required to work with the system."
+msgstr ""
+"Он позволяет ставить задачи, назначать исполнителей и менять их статусы. "
+"Для работы с системой требуется регистрация и аутентификация."
+
+#: task_manager/templates/index.html:20
+msgid "Get Started"
+msgstr "Начать работу"
+
+#: task_manager/templates/registration/login.html:5
+msgid "Log in into Task Manager."
+msgstr "Вход в Менеджер задач."
+
+#: task_manager/templates/registration/login.html:6
+#: task_manager/templates/registration/login.html:9
+msgid "Login"
+msgstr "Вход"
+
+#: task_manager/templates/registration/login.html:13
+msgctxt "Login button"
+msgid "Login"
+msgstr "Войти"
+
+#: task_manager/users/constants.py:41
+msgid "List of Task Manager Users."
+msgstr "Список всех пользователей Менеджера задач."
+
+#: task_manager/users/constants.py:44 task_manager/users/constants.py:46
+msgid "Registration"
+msgstr "Регистрация"
+
+#: task_manager/users/constants.py:45
+msgid "User Registration on Task Manager."
+msgstr "Регистрация пользователя в Менеджере задач."
+
+#: task_manager/users/constants.py:48
+msgid "User editing"
+msgstr "Изменение пользователя"
+
+#: task_manager/users/constants.py:49
+msgid "User editing on Task Manager."
+msgstr "Изменение пользователя в Менеджере задач."
+
+#: task_manager/users/constants.py:50
+msgid "User change"
+msgstr "Изменение пользователя"
+
+#: task_manager/users/constants.py:52
+msgid "User deleting"
+msgstr "Удаление пользователя"
+
+#: task_manager/users/constants.py:53
+msgid "User deleting on Task Manager."
+msgstr "Удаление пользователя в Менеджере задач."
+
+#: task_manager/users/constants.py:54
+msgid "Deleting a user"
+msgstr "Удаление пользователя"
+
+#: task_manager/users/constants.py:58
+msgid "User successfully registered"
+msgstr "Пользователь успешно зарегистрирован"
+
+#: task_manager/users/constants.py:59
+msgid "User successfully updated"
+msgstr "Пользователь успешно изменён"
+
+#: task_manager/users/constants.py:60
+msgid "User successfully deleted"
+msgstr "Пользователь успешно удалён"
+
+#: task_manager/users/constants.py:61
+msgid "You do not have permission to modify another user"
+msgstr "У вас нет прав для изменения другого пользователя"
+
+#: task_manager/users/constants.py:62
+msgid "Cannot delete user because it is in use"
+msgstr "Невозможно удалить пользователя, потому что он используется"
+
+#: task_manager/users/constants.py:74
+msgid "First Name"
+msgstr "Имя"
+
+#: task_manager/users/constants.py:75
+msgid "Last Name"
+msgstr "Фамилия"
+
+#: task_manager/users/constants.py:78
+msgid "Required. Please enter your real name."
+msgstr "Пожалуйста, введите настоящее имя."
+
+#: task_manager/users/constants.py:79
+msgid "Required. Please enter your real surname."
+msgstr "Пожалуйста, введите настоящую фамилию."
+
+#: task_manager/users/constants.py:83
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: task_manager/users/constants.py:84
+msgid "Change"
+msgstr "Изменить"
+
+#: task_manager/users/templates/users/user_confirm_delete.html:16
+msgid "No, stay and go back!"
+msgstr "Нет, остаться и вернуться!"
+
+#: task_manager/users/templates/users/user_list.html:15
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: task_manager/users/templates/users/user_list.html:16
+msgid "Full name"
+msgstr "Полное имя"
+
+#: task_manager/users/templates/users/user_list.html:40
+msgid "No users"
+msgstr "Нет пользователей"

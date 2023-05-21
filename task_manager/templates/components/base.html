@@ -1,0 +1,32 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{% block description %}{% endblock %}">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="https://cdn.jim-nielsen.com/ios/512/meistertask-task-management-2015-07-29.png" />
+        {# Load the tag library #}
+        {% load bootstrap4 %}
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <header>
+            {% include 'components/navbar.html' %}
+        </header>
+        <main class="container wrapper flex-grow-1">
+            {# Display django.contrib.messages as Bootstrap alerts #}
+            {% bootstrap_messages %}
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            {% include 'components/footer.html' %}
+        </footer>
+        {# Load CSS and JavaScript #}
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery='full' %}
+    </body>
+</html>

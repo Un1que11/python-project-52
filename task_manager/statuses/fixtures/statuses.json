@@ -1,9 +1,0 @@
-[
-    {
-        "model": "statuses.status",
-        "pk": 1,
-        "fields": {
-            "name": "On going"
-        }
-    }
-]

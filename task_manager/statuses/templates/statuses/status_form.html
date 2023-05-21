@@ -1,0 +1,11 @@
+{% extends "components/base.html" %}
+
+{% load i18n bootstrap4 %}
+
+{% block description %}{{ page_description }}{% endblock %}
+{% block title %}{{ page_title }} | {% translate "Task Manager" %}{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">{{ page_h1 }}</h1>
+    {% include 'components/form.html' %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "components/base.html" %}
+
+{% load i18n %}
+
+{% block description %}{{ page_description }}{% endblock %}
+{% block title %}{{ page_title }} | {% translate "Task Manager" %}{% endblock %}
+
+{% block content %}
+<h1 class="my-4">{{ page_h1 }}</h1>
+<table class="table">
+    {% if users %}
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">{% translate "Username" %}</th>
+                <th scope="col">{% translate "Full name" %}</th>
+                <th scope="col">{% translate "Creat at" %}</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{ user.id }}</th>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.first_name}} {{ user.last_name}}</td>
+                    <td>{{ user.date_joined|date:"d.m.Y" }}</td>
+                    <td>
+                        <a class="btn btn-info btn-sm mr-2" href="{% url 'user_update' user.id %}">
+                            {% translate "Update" %}</button>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'user_delete' user.id %}">
+                            {% translate "Delete" %}</button>
+                        </a>      
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <div class="card-body">{% translate "No users" %}</div>
+    {% endif %}
+</table>
+{% endblock %}

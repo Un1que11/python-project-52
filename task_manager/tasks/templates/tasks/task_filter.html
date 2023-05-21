@@ -1,0 +1,65 @@
+{% extends "components/base.html" %}
+
+{% load i18n bootstrap4 %}
+
+{% block description %}{{ page_description }}{% endblock %}
+{% block title %}{{ page_title }} | {% translate "Task Manager" %}{% endblock %}
+
+{% block content %}
+<h1 class="my-4">{{ page_h1 }}</h1>
+<div class="card mb-3">
+    <div class="card-body bg-light">
+        <form class="form-inline center my-auto" method="get">
+            {% bootstrap_form filter.form form_group_class="form-group" field_class="ml-2 mr-3" %}
+            <div><br><br></div>
+            <button class="btn btn-primary">{{ button_text }}</button>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <div class="container">
+        <div class="row mb-4">
+            <a class="btn btn-outline-primary btn-sm" href="{% url 'task_create' %}">{% translate "Create task" %}</a>
+        </div>
+    </div>
+    {% if tasks %}
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">{% translate "Task name" %}</th>
+                <th scope="col">{% translate "Status" %}</th>
+                <th scope="col">{% translate "Author" %}</th>
+                <th scope="col">{% translate "Executor" %}</th>
+                <th scope="col">{% translate "Modified at" %}</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <th scope="row">{{ task.id }}</th>
+                    <td><a href="{% url 'task_detail' task.id %}">{{ task.name|truncatechars:30 }}</a></td>
+                    <td>{{ task.status }}</td>
+                    <td>{{ task.author }}</td>
+                    <td>{{ task.executor|default_if_none:"" }}</td>
+                    <td>{{ task.date_modified|date:"d.m.Y" }}</td>
+                    <td>
+                        <a class="btn btn-info btn-sm mr-2" href="{% url 'task_update' task.id %}">
+                            {% translate "Update" %}</button>
+                        </a>
+                        {% if user.id == task.author.id %}
+                            <a class="btn btn-danger btn-sm" href="{% url 'task_delete' task.id %}">
+                        {% else %}
+                            <a class="btn btn-danger btn-sm disabled" href="{% url 'task_delete' task.id %}">
+                        {% endif %}
+                            {% translate "Delete" %}</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% else %}
+        <div class="card-body">{% translate "No tasks" %}</div>
+    {% endif %}
+</table>
+{% endblock %}

@@ -1,12 +1,13 @@
-from task_manager.users import views
+from django.urls import path, URLPattern
+from typing import List
 
-from django.urls import path
+from .views import UsersListView, UserCreateView, UserUpdateView, UserDeleteView
+from .constants import LIST_USERS, CREATE_USER, UPDATE_USER, DELETE_USER
 
-urlpatterns = [
-    path('users/', views.UserListView.as_view(), name='users-list'),
-    path('users/create/', views.UserCreateView.as_view(), name='register'),
-    path('users/<int:pk>/update/', views.UserUpdateView.as_view(), name='update'),
-    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='delete'),
-    path('login/', views.LoginUserView.as_view(), name='login'),
-    path('logout/', views.LogoutUsersView.as_view(), name='logout'),
+
+urlpatterns: List[URLPattern] = [
+    path('', UsersListView.as_view(), name=LIST_USERS),
+    path('create/', UserCreateView.as_view(), name=CREATE_USER),
+    path('<int:pk>/update/', UserUpdateView.as_view(), name=UPDATE_USER),
+    path('<int:pk>/delete/', UserDeleteView.as_view(), name=DELETE_USER)
 ]

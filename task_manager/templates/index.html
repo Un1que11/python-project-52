@@ -1,17 +1,23 @@
-{% extends "base.html" %}
+{% extends "components/base.html" %}
 
 {% load i18n %}
-{% load bootstrap4 %}
 
-{% block main %}
-<h1 class="my-4"></h1>
-<h1 class="my-4"></h1>
+{% block description %}{% trans "Simple and functional task manager." %}{% endblock %}
+{% block title %}{% translate "Task Manager" %}{% endblock %}
+
+{% block content %}
 <div class="card">
-  <div class="card-body p-5 bg-light">
-    <div class="display-4">{% trans "Hello from Hexlet!" %}</div>
-    <p class="lead">{% trans "Practical programming courses" %}</p>
-    <hr>
-    <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans "Learn more" %}</a>
-  </div>
+    <div class="card-body p-5 bg-light">
+        <h1 class="my-4 display-4">{% trans "Welcome to Task Manager!" %}</h1>
+        <p class="lead"><i>{% trans "Simple and functional task manager." %}</i></p>
+        <p class="lead">{% trans "It allows you to set tasks, assign performers and change their statuses. Registration and authentication are required to work with the system." %}</p>
+        <hr>
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary btn-lg" href="{% url 'tasks' %}">
+        {% else %}
+            <a class="btn btn-primary btn-lg" href="{% url 'login' %}">
+        {% endif %}
+            {% trans "Get Started" %}</a>
+    </div>
 </div>
 {% endblock %}
