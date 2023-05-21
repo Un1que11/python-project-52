@@ -46,9 +46,9 @@ To install, you must first install the following software:
 
 ```Bash
 # clone via HTTPS:
-$ git clone https://github.com/IgorGakhov/python-project-52.git
+$ git clone https://github.com/Un1que11/python-project-52.git
 # or clone via SSH:
-$ git clone git@github.com:IgorGakhov/python-project-52.git
+$ git clone git@github.com:Un1que11/python-project-52.git
 $ cd python-project-52
 $ make install
 $ touch .env
@@ -225,4 +225,4 @@ ___
 
 **Thank you for attention!**
 
-:man_technologist: Author: [@Unique11](https://github.com/Unique11)
+:man_technologist: Author: [@Un1que11](https://github.com/Un1que11)
