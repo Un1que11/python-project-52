@@ -31,8 +31,7 @@ migrate:
 	poetry run python manage.py migrate
 
 build:
-	rm -rf .venv && poetry env remove --all
-	poetry build
+	/root/.poetry/bin/poetry build
 
 publish:
 	poetry publish --dry-run
