@@ -34,7 +34,7 @@ msgstr "Вы не авторизованы! Пожалуйста, выполни
 
 #: task_manager/constants.py:25
 msgid "A task can only be deleted by its author."
-msgstr "Задачу может удалить только её автор."
+msgstr "Задачу может удалить только ее автор."
 
 #: task_manager/labels/constants.py:39 task_manager/labels/constants.py:41
 #: task_manager/tasks/templates/tasks/task_detail.html:42
@@ -188,7 +188,7 @@ msgstr "Дата регистрации"
 #: task_manager/tasks/templates/tasks/task_detail.html:37
 #: task_manager/tasks/templates/tasks/task_filter.html:33
 msgid "Modified at"
-msgstr "Изменён"
+msgstr "Изменен"
 
 #: task_manager/labels/templates/labels/label_list.html:38
 #: task_manager/statuses/templates/statuses/status_list.html:38
@@ -255,11 +255,11 @@ msgstr "Статус успешно создан"
 
 #: task_manager/statuses/constants.py:58
 msgid "Status changed successfully"
-msgstr "Статус успешно изменён"
+msgstr "Статус успешно изменен"
 
 #: task_manager/statuses/constants.py:59
 msgid "Status deleted successfully"
-msgstr "Статус успешно удалён"
+msgstr "Статус успешно удален"
 
 #: task_manager/statuses/constants.py:60
 msgid "Can't delete status because it's in use"
