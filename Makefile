@@ -1,6 +1,9 @@
 install:
 	poetry install
 
+start: migrate
+		poetry run gunicorn task_manager.wsgi
+
 lint:
 	poetry run flake8 task_manager
 
