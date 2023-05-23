@@ -33,7 +33,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
             }
     form_class: Type[BaseForm] = UserRegistrationForm
     success_url = reverse_lazy('login')
-    success_message: str = _('User successfully updated')
+    success_message: str = _('User successfully registered')
 
 
 class UserUpdateView(ModifyPermissionMixin, LoginRequiredMixin,
