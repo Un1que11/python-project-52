@@ -7,10 +7,10 @@ from .models import User
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(
-        required=True, label=_('First name'), help_text=_('Required. Please enter your real name.')
+        required=True, label=_('First Name'), help_text=_('Required. Please enter your real name.')
     )
     last_name = forms.CharField(
-            required=True, label=_('Last name'), help_text=_('Required. Please enter your real surname.')  # noqa: E501
+            required=True, label=_('Last Name'), help_text=_('Required. Please enter your real surname.')  # noqa: E501
     )
 
     class Meta(UserCreationForm.Meta):
