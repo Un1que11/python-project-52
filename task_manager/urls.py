@@ -18,19 +18,17 @@ from django.urls import path, include, URLPattern
 from typing import List
 
 from .views import HomePageView, UserLoginView, UserLogoutView
-from .constants import HOME, LOGIN, LOGOUT
-
 
 urlpatterns: List[URLPattern] = [
     # Admin Panel
     path('admin/', admin.site.urls),
 
     # Home page:
-    path('', HomePageView.as_view(), name=HOME),
+    path('', HomePageView.as_view(), name='home'),
 
     # Authentication:
-    path('login/', UserLoginView.as_view(), name=LOGIN),
-    path('logout/', UserLogoutView.as_view(), name=LOGOUT),
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('logout/', UserLogoutView.as_view(), name='logout'),
 
     # Apps:
     path('users/', include('task_manager.users.urls')),

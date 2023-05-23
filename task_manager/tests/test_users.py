@@ -8,9 +8,6 @@ from http import HTTPStatus
 from typing import List, Dict
 
 from task_manager.users.models import User
-from task_manager.users.constants import UPDATE_USER, DELETE_USER, \
-    TEMPLATE_CREATE, TEMPLATE_LIST, TEMPLATE_UPDATE, TEMPLATE_DELETE, \
-    REVERSE_USERS, REVERSE_CREATE, REVERSE_LOGIN
 
 
 class UsersTest(TestCase):
@@ -40,7 +37,7 @@ class UsersTest(TestCase):
         self.assertEqual(user.last_name, user_data['last_name'])
 
     def test_user_exists(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_USERS)
+        response: HttpResponse = self.client.get(reverse_lazy('users'))
 
         users_list: List = list(response.context['users'])
         self.assertTrue(len(users_list) == 3)
@@ -57,7 +54,7 @@ class UsersTest(TestCase):
         self.assertEqual(user3.last_name, 'Granger')
 
     def test_user_model_representation(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_USERS)
+        response: HttpResponse = self.client.get(reverse_lazy('users'))
 
         users_list: List = list(response.context['users'])
 
@@ -69,17 +66,17 @@ class UsersTest(TestCase):
     # LIST VIEW TESTING
 
     def test_users_list_view(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_USERS)
+        response: HttpResponse = self.client.get(reverse_lazy('users'))
 
-        self.assertTemplateUsed(response, template_name=TEMPLATE_LIST)
+        self.assertTemplateUsed(response, template_name='users/user_list.html')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_users_list_view_has_create_link(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_USERS)
+        response: HttpResponse = self.client.get(reverse_lazy('users'))
         self.assertContains(response, '/users/create/')
 
     def test_users_list_view_has_update_and_delete_links(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_USERS)
+        response: HttpResponse = self.client.get(reverse_lazy('users'))
         for user_id in range(1, len(response.context['users']) + 1):
             self.assertContains(response, '/users/{}/update/'.format(user_id))
             self.assertContains(response, '/users/{}/delete/'.format(user_id))
@@ -87,13 +84,13 @@ class UsersTest(TestCase):
     # CREATE VIEW TESTING & FORM
 
     def test_user_create_view(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_CREATE)
+        response: HttpResponse = self.client.get(reverse_lazy('sign_up'))
 
-        self.assertTemplateUsed(response, template_name=TEMPLATE_CREATE)
+        self.assertTemplateUsed(response, template_name='users/user_form.html')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_user_create_post_with_validation_errors(self) -> None:
-        ROUTE = REVERSE_CREATE
+        ROUTE = reverse_lazy('sign_up')
 
         # Username is required
         params: Dict[str, str] = UsersTest.VALID_DATA.copy()
@@ -180,27 +177,27 @@ class UsersTest(TestCase):
         )
 
     def test_user_create(self) -> None:
-        ROUTE = REVERSE_CREATE
+        ROUTE = reverse_lazy('sign_up')
 
         params: Dict[str, str] = UsersTest.VALID_DATA.copy()
 
         response: HttpResponse = self.client.post(ROUTE, data=params)
         self.assertTrue(User.objects.get(id=4))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_LOGIN)
+        self.assertRedirects(response, reverse_lazy('login'))
 
     # UPDATE VIEW TESTING
 
     def test_user_update_view(self) -> None:
-        ROUTE = reverse_lazy(UPDATE_USER, args=[self.user1.id])
+        ROUTE = reverse_lazy('user_update', args=[self.user1.id])
 
         self.client.force_login(self.user1)
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_UPDATE)
+        self.assertTemplateUsed(response, template_name='users/user_form.html')
 
     def test_user_update(self) -> None:
-        ROUTE = reverse_lazy(UPDATE_USER, args=[self.user1.id])
+        ROUTE = reverse_lazy('user_update', args=[self.user1.id])
 
         original_objs_count: int = len(User.objects.all())
         params: Dict[str, str] = UsersTest.VALID_DATA
@@ -211,7 +208,7 @@ class UsersTest(TestCase):
         final_objs_count: int = len(User.objects.all())
         self.assertTrue(final_objs_count == original_objs_count)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_USERS)
+        self.assertRedirects(response, reverse_lazy('users'))
 
         updated_user: User = User.objects.get(id=self.user1.id)
         self.assertEqual(updated_user.username, params['username'])
@@ -222,15 +219,15 @@ class UsersTest(TestCase):
     # DELETE VIEW TESTING
 
     def test_user_delete_view(self) -> None:
-        ROUTE = reverse_lazy(DELETE_USER, args=[self.user1.id])
+        ROUTE = reverse_lazy('user_delete', args=[self.user1.id])
 
         self.client.force_login(self.user1)
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_DELETE)
+        self.assertTemplateUsed(response, template_name='users/user_confirm_delete.html')
 
     def test_user_delete(self) -> None:
-        ROUTE = reverse_lazy(DELETE_USER, args=[self.user1.id])
+        ROUTE = reverse_lazy('user_delete', args=[self.user1.id])
 
         original_objs_count: int = len(User.objects.all())
 
@@ -239,6 +236,6 @@ class UsersTest(TestCase):
         final_objs_count: int = len(User.objects.all())
         self.assertTrue(final_objs_count == original_objs_count - 1)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_USERS)
+        self.assertRedirects(response, reverse_lazy('users'))
         with self.assertRaises(ObjectDoesNotExist):
             User.objects.get(id=self.user1.id)

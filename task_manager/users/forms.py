@@ -1,28 +1,26 @@
+from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import User
-from .constants import USERNAME, FIRST_NAME, LAST_NAME, EMAIL, \
-    FIRST_NAME_LABEL, LAST_NAME_LABEL, EMAIL_LABEL, \
-    FIRST_NAME_HELP_TEXT, LAST_NAME_HELP_TEXT
 
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(
-        required=True, label=FIRST_NAME_LABEL, help_text=FIRST_NAME_HELP_TEXT
+        required=True, label=_('First name'), help_text=_('Required. Please enter your real name.')
     )
     last_name = forms.CharField(
-        required=True, label=LAST_NAME_LABEL, help_text=LAST_NAME_HELP_TEXT
+            required=True, label=_('Last name'), help_text=_('Required. Please enter your real surname.')  # noqa: E501
     )
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = (USERNAME, FIRST_NAME, LAST_NAME)
+        fields = ('username', 'first_name', 'last_name')
 
 
 class UserEditingForm(UserRegistrationForm):
-    email = forms.EmailField(label=EMAIL_LABEL, required=False)
+    email = forms.EmailField(label='Email', required=False)
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = (USERNAME, FIRST_NAME, LAST_NAME, EMAIL)
+        fields = ('username', 'first_name', 'last_name', 'email')

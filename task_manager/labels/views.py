@@ -1,11 +1,10 @@
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from typing import Dict, Any, Tuple, Union, Callable, Type
+from typing import Dict, Tuple, Type
 
 from .models import Label
-from .constants import REVERSE_LABELS, NAME, \
-    CONTEXT_LIST, CONTEXT_CREATE, CONTEXT_UPDATE, CONTEXT_DELETE, \
-    MSG_CREATED, MSG_UPDATED, MSG_DELETED, LABEL_USED_IN_TASK
 from ..mixins import AuthorizationPermissionMixin, DeletionProtectionMixin
 
 
@@ -13,27 +12,41 @@ class LabelsListView(AuthorizationPermissionMixin, ListView):
     '''Show the list of labels.'''
     model: Type[Label] = Label
     context_object_name: str = 'labels'
-    extra_context: Dict = CONTEXT_LIST
+    extra_context: Dict = {
+            'page_title': _('Labels'),
+            'page_description': _('List of Task Manager Labels.'),
+            'page_h1': _('Labels')
+            }
 
 
 class LabelCreateView(AuthorizationPermissionMixin,
                       SuccessMessageMixin, CreateView):
     '''Create a label.'''
     model: Type[Label] = Label
-    extra_context: Dict = CONTEXT_CREATE
-    fields: Tuple = (NAME,)
-    success_url: Union[str, Callable[..., Any]] = REVERSE_LABELS
-    success_message: str = MSG_CREATED
+    extra_context: Dict = {
+            'page_title': _('Label creation'),
+            'page_description': _('Label Creation on Task Manager.'),
+            'page_h1': _('Create label'),
+            'button_text': _('Create')
+            }
+    fields: Tuple = ('name',)
+    success_url = reverse_lazy('labels')
+    success_message: str = _('Label created successfully')
 
 
 class LabelUpdateView(AuthorizationPermissionMixin,
                       SuccessMessageMixin, UpdateView):
     '''Change a label.'''
     model: Type[Label] = Label
-    extra_context: Dict = CONTEXT_UPDATE
-    fields: Tuple = (NAME,)
-    success_url: Union[str, Callable[..., Any]] = REVERSE_LABELS
-    success_message: str = MSG_UPDATED
+    extra_context: Dict = {
+            'page_title': _('Label editing'),
+            'page_description': _('Label editing on Task Manager.'),
+            'page_h1': _('Change label'),
+            'button_text': _('Update')
+            }
+    fields: Tuple = ('name',)
+    success_url = reverse_lazy('labels')
+    success_message: str = _('Label changed successfully')
 
 
 class LabelDeleteView(AuthorizationPermissionMixin,
@@ -41,8 +54,13 @@ class LabelDeleteView(AuthorizationPermissionMixin,
     '''Delete a label.'''
     model: Type[Label] = Label
     context_object_name: str = 'label'
-    extra_context: Dict = CONTEXT_DELETE
-    success_url: Union[str, Callable[..., Any]] = REVERSE_LABELS
-    success_message: str = MSG_DELETED
-    protected_data_url: Union[str, Callable[..., Any]] = REVERSE_LABELS
-    protected_data_message: str = LABEL_USED_IN_TASK
+    extra_context: Dict = {
+            'page_title': _('Label deleting'),
+            'page_description': _('Label deleting on Task Manager.'),
+            'page_h1': _('Delete label'),
+            'button_text': _('Yes, delete')
+            }
+    success_url = reverse_lazy('labels')
+    success_message: str = _('Label deleted successfully')
+    protected_data_url = reverse_lazy('labels')
+    protected_data_message: str = _('Can\'t delete label because it\'s in use')

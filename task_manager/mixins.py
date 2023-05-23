@@ -1,3 +1,5 @@
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -5,23 +7,21 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.db.models import ProtectedError
 from typing import Any, Union, Callable
 
-from .constants import MSG_NO_PERMISSION, REVERSE_LOGIN, REVERSE_HOME
-
 
 class AuthorizationPermissionMixin(LoginRequiredMixin):
     '''Sets access rules for unauthorized users.'''
 
     def handle_no_permission(self) -> HttpResponseRedirect:
         '''Sets rules when a page is unavailable to an unauthorized user.'''
-        messages.warning(self.request, MSG_NO_PERMISSION)
-        return redirect(REVERSE_LOGIN)
+        messages.warning(self.request, _('You are not authorized! Please sign in.'))
+        return redirect(reverse_lazy('login'))
 
 
 class ModifyPermissionMixin(LoginRequiredMixin):
     '''Sets access rules for an unauthenticated user.'''
 
     unpermission_message: str = 'Access denied message'
-    unpermission_url: Union[str, Callable[..., Any]] = REVERSE_LOGIN
+    unpermission_url: Union[str, Callable[..., Any]] = reverse_lazy('login')
 
     def dispatch(self, request: HttpRequest,
                  *args: Any, **kwargs: Any) -> HttpResponse:
@@ -38,7 +38,7 @@ class DeletionProtectionMixin:
     due to the protection of related data.'''
 
     protected_data_message: str = 'Entity deletion forbidden message'
-    protected_data_url: Union[str, Callable[..., Any]] = REVERSE_HOME
+    protected_data_url: Union[str, Callable[..., Any]] = reverse_lazy('home')
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         '''Sends data to the server with protection check.'''

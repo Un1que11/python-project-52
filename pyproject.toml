@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "Task Manager is a task management system. It allows you to set tasks, assign performers, and change their statuses."
 authors = ["Mikhail Orlov <mikhailorlov398@gmail.com>"]
 readme = "README.md"
 packages = [

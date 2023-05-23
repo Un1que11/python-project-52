@@ -31,7 +31,7 @@ migrate:
 	poetry run python manage.py migrate
 
 build:
-	/root/.poetry/bin/poetry build
+	poetry build
 
 publish:
 	poetry publish --dry-run

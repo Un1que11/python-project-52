@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from django.test import TestCase, Client
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -12,16 +13,6 @@ from task_manager.tasks.models import Task
 from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 from task_manager.users.models import User
-from task_manager.tasks.constants import \
-    TEMPLATE_CREATE, TEMPLATE_LIST, TEMPLATE_UPDATE, TEMPLATE_DELETE, TEMPLATE_DETAIL, \
-    REVERSE_TASKS, REVERSE_CREATE, UPDATE_TASK, DELETE_TASK, DETAIL_TASK, \
-    MSG_NOT_AUTHOR_FOR_DELETE_TASK
-from task_manager.statuses.constants import \
-    REVERSE_STATUSES, DELETE_STATUS, STATUS_USED_IN_TASK
-from task_manager.labels.constants import \
-    REVERSE_LABELS, DELETE_LABEL, LABEL_USED_IN_TASK
-from task_manager.users.constants import \
-    REVERSE_USERS, DELETE_USER, USER_USED_IN_TASK
 
 
 class TasksTest(TestCase):
@@ -63,7 +54,7 @@ class TasksTest(TestCase):
         self.assertEqual(task.date_modified, task_data['date_modified'])
 
     def test_task_exists(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_TASKS)
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'))
 
         tasks_list: List = list(response.context['tasks'])
         self.assertTrue(len(tasks_list) == 3)
@@ -98,7 +89,7 @@ class TasksTest(TestCase):
         )
 
     def test_task_model_representation(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_TASKS)
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'))
 
         tasks_list: List = list(response.context['tasks'])
 
@@ -110,24 +101,24 @@ class TasksTest(TestCase):
     # LIST VIEW TESTING & TASKS FILTERING
 
     def test_tasks_list_view(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_TASKS)
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'))
 
-        self.assertTemplateUsed(response, template_name=TEMPLATE_LIST)
+        self.assertTemplateUsed(response, template_name='tasks/task_filter.html')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_tasks_list_view_has_create_link(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_TASKS)
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'))
         self.assertContains(response, '/tasks/create/')
 
     def test_tasks_list_view_has_update_and_delete_links(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_TASKS)
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'))
         for task_id in range(1, len(response.context['tasks']) + 1):
             self.assertContains(response, '/tasks/{}/update/'.format(task_id))
             self.assertContains(response, '/tasks/{}/delete/'.format(task_id))
 
     def test_filter_tasks_by_status(self) -> None:
         # Отфильтровать задачи со статусом "New"
-        response: HttpResponse = self.client.get(REVERSE_TASKS, {'status': self.status1.pk})
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'), {'status': self.status1.pk})
         tasks = response.context['tasks']
         self.assertEqual(tasks.count(), 2)
         self.assertIn(self.task2, tasks)
@@ -136,7 +127,7 @@ class TasksTest(TestCase):
 
     def test_filter_tasks_by_executor(self) -> None:
         # Отфильтровать задачи, выполняемые пользователем 2
-        response: HttpResponse = self.client.get(REVERSE_TASKS, {'executor': self.user2.pk})
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'), {'executor': self.user2.pk})
         tasks = response.context['tasks']
         self.assertEqual(tasks.count(), 2)
         self.assertIn(self.task1, tasks)
@@ -146,7 +137,7 @@ class TasksTest(TestCase):
     def test_filter_tasks_by_labels(self) -> None:
         # Отфильтровать задачи с меткой "Development"
         label = Label.objects.get(name='Development')
-        response: HttpResponse = self.client.get(REVERSE_TASKS, {'labels': label.pk})
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'), {'labels': label.pk})
         tasks = response.context['tasks']
         self.assertEqual(tasks.count(), 2)
         self.assertIn(self.task1, tasks)
@@ -155,7 +146,7 @@ class TasksTest(TestCase):
 
     def test_filter_tasks_by_current_user(self) -> None:
         # Отфильтровать задачи текущего пользователя (определен в "setUp")
-        response: HttpResponse = self.client.get(REVERSE_TASKS, {'self_tasks': 'on'})
+        response: HttpResponse = self.client.get(reverse_lazy('tasks'), {'self_tasks': 'on'})
         tasks = response.context['tasks']
         self.assertEqual(tasks.count(), 2)
         self.assertIn(self.task1, tasks)
@@ -165,13 +156,13 @@ class TasksTest(TestCase):
     # CREATE VIEW TESTING & FORM
 
     def test_task_create_view(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_CREATE)
+        response: HttpResponse = self.client.get(reverse_lazy('task_create'))
 
-        self.assertTemplateUsed(response, template_name=TEMPLATE_CREATE)
+        self.assertTemplateUsed(response, template_name='tasks/task_form.html')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_task_create_post_with_validation_errors(self) -> None:
-        ROUTE = REVERSE_CREATE
+        ROUTE = reverse_lazy('task_create')
 
         # Task name is required
         params: Dict[str, str] = TasksTest.VALID_DATA.copy()
@@ -260,26 +251,26 @@ class TasksTest(TestCase):
         )
 
     def test_task_create(self) -> None:
-        ROUTE = REVERSE_CREATE
+        ROUTE = reverse_lazy('task_create')
 
         params: Dict[str, str] = TasksTest.VALID_DATA.copy()
 
         response: HttpResponse = self.client.post(ROUTE, data=params)
         self.assertTrue(Task.objects.get(id=4))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_TASKS)
+        self.assertRedirects(response, reverse_lazy('tasks'))
 
     # UPDATE VIEW TESTING
 
     def test_task_update_view(self) -> None:
-        ROUTE = reverse_lazy(UPDATE_TASK, args=[self.task1.id])
+        ROUTE = reverse_lazy('task_update', args=[self.task1.id])
 
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_UPDATE)
+        self.assertTemplateUsed(response, template_name='tasks/task_form.html')
 
     def test_task_update(self) -> None:
-        ROUTE = reverse_lazy(UPDATE_TASK, args=[self.task1.id])
+        ROUTE = reverse_lazy('task_update', args=[self.task1.id])
 
         original_objs_count: int = len(Task.objects.all())
         params: Dict[str, str] = TasksTest.VALID_DATA
@@ -289,7 +280,7 @@ class TasksTest(TestCase):
         final_objs_count: int = len(Task.objects.all())
         self.assertTrue(final_objs_count == original_objs_count)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_TASKS)
+        self.assertRedirects(response, reverse_lazy('tasks'))
 
         updated_task: Task = Task.objects.get(id=self.task1.id)
         self.assertEqual(updated_task.name, params['name'])
@@ -297,15 +288,15 @@ class TasksTest(TestCase):
     # DELETE VIEW TESTING
 
     def test_task_delete_view(self) -> None:
-        ROUTE = reverse_lazy(DELETE_TASK, args=[self.task1.id])
+        ROUTE = reverse_lazy('task_delete', args=[self.task1.id])
 
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_DELETE)
+        self.assertTemplateUsed(response, template_name='tasks/task_confirm_delete.html')
 
     def test_task_delete(self) -> None:
         self.client.force_login(self.user2)  # User 2 is Task 3 author
-        ROUTE = reverse_lazy(DELETE_TASK, args=[self.task3.id])
+        ROUTE = reverse_lazy('task_delete', args=[self.task3.id])
 
         original_objs_count: int = len(Task.objects.all())
         response: HttpResponse = self.client.post(ROUTE, follow=True)
@@ -313,42 +304,42 @@ class TasksTest(TestCase):
 
         self.assertTrue(final_objs_count == original_objs_count - 1)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertRedirects(response, REVERSE_TASKS)
+        self.assertRedirects(response, reverse_lazy('tasks'))
         with self.assertRaises(ObjectDoesNotExist):
             Task.objects.get(id=self.task3.id)
 
     def test_not_self_task_delete(self) -> None:
-        ROUTE = reverse_lazy(DELETE_TASK, args=[self.task3.id])
+        ROUTE = reverse_lazy('task_delete', args=[self.task3.id])
         original_objs_count: int = len(Task.objects.all())
         # GET
         get_response: HttpResponse = self.client.get(ROUTE)
         final_objs_count: int = len(Task.objects.all())
         self.assertTrue(final_objs_count == original_objs_count)
-        self.assertRedirects(get_response, REVERSE_TASKS)
+        self.assertRedirects(get_response, reverse_lazy('tasks'))
         self.assertEqual(len(Task.objects.all()), 3)
         self.assertRaisesMessage(
             expected_exception=PermissionDenied,
-            expected_message=MSG_NOT_AUTHOR_FOR_DELETE_TASK
+            expected_message=_('A task can only be deleted by its author.')
         )
         # POST
         post_response: HttpResponse = self.client.post(ROUTE)
         final_objs_count: int = len(Task.objects.all())
         self.assertTrue(final_objs_count == original_objs_count)
-        self.assertRedirects(post_response, REVERSE_TASKS)
+        self.assertRedirects(post_response, reverse_lazy('tasks'))
         self.assertEqual(len(Task.objects.all()), 3)
         self.assertRaisesMessage(
             expected_exception=PermissionDenied,
-            expected_message=MSG_NOT_AUTHOR_FOR_DELETE_TASK
+            expected_message=_('A task can only be deleted by its author.')
         )
 
     # DETAIL VIEW TESTING
 
     def test_task_detail_view(self) -> None:
-        ROUTE = reverse_lazy(DETAIL_TASK, args=[3])
+        ROUTE = reverse_lazy('task_detail', args=[3])
 
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_DETAIL)
+        self.assertTemplateUsed(response, template_name='tasks/task_detail.html')
 
 
 class TestDeleteRelatedEntities(TestCase):
@@ -379,21 +370,21 @@ class TestDeleteRelatedEntities(TestCase):
     def test_delete_status(self):
         # отправляем запрос на удаление связанного с задачей статуса
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_STATUS, args=[self.status1.id]), follow=True
+            reverse_lazy('status_delete', args=[self.status1.id]), follow=True
         )
         self.assertEqual(Status.objects.count(), 3)
         # проверяем, что получен ответ с кодом 200, т.к. обрабатываем ProtectedError
-        self.assertRedirects(response, REVERSE_STATUSES)
+        self.assertRedirects(response, reverse_lazy('statuses'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertRaisesMessage(
             expected_exception=ProtectedError,
-            expected_message=STATUS_USED_IN_TASK
+            expected_message=_('Can\'t delete status because it\'s in use')
         )
 
     def test_delete_unused_status(self):
         # отправляем запрос на удаление не связанного с задачей статуса
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_STATUS, args=[self.status2.id]), follow=True
+            reverse_lazy('status_delete', args=[self.status2.id]), follow=True
         )
         self.assertEqual(Status.objects.count(), 2)
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -403,22 +394,22 @@ class TestDeleteRelatedEntities(TestCase):
     def test_delete_author(self):
         # отправляем запрос на удаление автора задачи
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_USER, args=[self.user1.id]), follow=True
+            reverse_lazy('user_delete', args=[self.user1.id]), follow=True
         )
         self.assertEqual(User.objects.count(), 3)
         # проверяем, что получен ответ с кодом 200, т.к. обрабатываем ProtectedError
-        self.assertRedirects(response, REVERSE_USERS)
+        self.assertRedirects(response, reverse_lazy('users'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertRaisesMessage(
             expected_exception=ProtectedError,
-            expected_message=USER_USED_IN_TASK
+            expected_message=_('Cannot delete user because it is in use')
         )
 
     def test_delete_unused_author(self):
         # отправляем запрос на удаление пользователя задачи без авторских прав
         self.client.force_login(self.user3)
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_USER, args=[self.user3.id]), follow=True
+            reverse_lazy('user_delete', args=[self.user3.id]), follow=True
         )
         self.assertEqual(User.objects.count(), 2)
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -428,22 +419,22 @@ class TestDeleteRelatedEntities(TestCase):
     def test_delete_executor(self):
         # отправляем запрос на удаление исполнителя задачи
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_USER, args=[self.user1.id]), follow=True
+            reverse_lazy('user_delete', args=[self.user1.id]), follow=True
         )
         self.assertEqual(User.objects.count(), 3)
         # проверяем, что получен ответ с кодом 200, т.к. обрабатываем ProtectedError
-        self.assertRedirects(response, REVERSE_USERS)
+        self.assertRedirects(response, reverse_lazy('users'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertRaisesMessage(
             expected_exception=ProtectedError,
-            expected_message=USER_USED_IN_TASK
+            expected_message=_('Cannot delete user because it is in use')
         )
 
     def test_delete_unused_executor(self):
         # отправляем запрос на удаление пользователя без исполнительных обязанностей
         self.client.force_login(self.user3)
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_USER, args=[self.user3.id]), follow=True
+            reverse_lazy('user_delete', args=[self.user3.id]), follow=True
         )
         self.assertEqual(User.objects.count(), 2)
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -453,21 +444,21 @@ class TestDeleteRelatedEntities(TestCase):
     def test_delete_label(self):
         # отправляем запрос на удаление связанной с задачей метки
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_LABEL, args=[self.label1.id]), follow=True
+            reverse_lazy('label_delete', args=[self.label1.id]), follow=True
         )
         self.assertEqual(Label.objects.count(), 3)
         # проверяем, что получен ответ с кодом 200, т.к. обрабатываем ProtectedError
-        self.assertRedirects(response, REVERSE_LABELS)
+        self.assertRedirects(response, reverse_lazy('labels'))
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertRaisesMessage(
             expected_exception=ProtectedError,
-            expected_message=LABEL_USED_IN_TASK
+            expected_message=_('Can\'t delete label because it\'s in use')
         )
 
     def test_delete_unused_label(self):
         # отправляем запрос на удаление не связанной с задачей метки
         response: HttpResponse = self.client.post(
-            reverse_lazy(DELETE_LABEL, args=[self.label2.id]), follow=True
+            reverse_lazy('label_delete', args=[self.label2.id]), follow=True
         )
         self.assertEqual(Label.objects.count(), 2)
         self.assertEqual(response.status_code, HTTPStatus.OK)

@@ -9,9 +9,6 @@ from typing import List, Dict
 
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
-from task_manager.statuses.constants import \
-    TEMPLATE_CREATE, TEMPLATE_LIST, TEMPLATE_UPDATE, TEMPLATE_DELETE, \
-    REVERSE_STATUSES, REVERSE_CREATE, UPDATE_STATUS, DELETE_STATUS
 
 
 class StatusesTest(TestCase):
@@ -34,7 +31,7 @@ class StatusesTest(TestCase):
         self.assertEqual(status.name, status_data['name'])
 
     def test_status_exists(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_STATUSES)
+        response: HttpResponse = self.client.get(reverse_lazy('statuses'))
 
         statuses_list: List = list(response.context['statuses'])
         self.assertTrue(len(statuses_list) == 3)
@@ -45,7 +42,7 @@ class StatusesTest(TestCase):
         self.assertEqual(status3.name, 'Completed')
 
     def test_status_model_representation(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_STATUSES)
+        response: HttpResponse = self.client.get(reverse_lazy('statuses'))
 
         statuses_list: List = list(response.context['statuses'])
 
@@ -57,17 +54,17 @@ class StatusesTest(TestCase):
     # LIST VIEW TESTING
 
     def test_statuses_list_view(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_STATUSES)
+        response: HttpResponse = self.client.get(reverse_lazy('statuses'))
 
-        self.assertTemplateUsed(response, template_name=TEMPLATE_LIST)
+        self.assertTemplateUsed(response, template_name='statuses/status_list.html')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_statuses_list_view_has_create_link(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_STATUSES)
+        response: HttpResponse = self.client.get(reverse_lazy('statuses'))
         self.assertContains(response, '/statuses/create/')
 
     def test_statuses_list_view_has_update_and_delete_links(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_STATUSES)
+        response: HttpResponse = self.client.get(reverse_lazy('statuses'))
         for status_id in range(1, len(response.context['statuses']) + 1):
             self.assertContains(response, '/statuses/{}/update/'.format(status_id))
             self.assertContains(response, '/statuses/{}/delete/'.format(status_id))
@@ -75,13 +72,13 @@ class StatusesTest(TestCase):
     # CREATE VIEW TESTING & FORM
 
     def test_status_create_view(self) -> None:
-        response: HttpResponse = self.client.get(REVERSE_CREATE)
+        response: HttpResponse = self.client.get(reverse_lazy('status_create'))
 
-        self.assertTemplateUsed(response, template_name=TEMPLATE_CREATE)
+        self.assertTemplateUsed(response, template_name='statuses/status_form.html')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_status_create_post_with_validation_errors(self) -> None:
-        ROUTE = REVERSE_CREATE
+        ROUTE = reverse_lazy('status_create')
 
         # Status name is required
         params: Dict[str, str] = StatusesTest.VALID_DATA.copy()
@@ -109,26 +106,26 @@ class StatusesTest(TestCase):
         )
 
     def test_status_create(self) -> None:
-        ROUTE = REVERSE_CREATE
+        ROUTE = reverse_lazy('status_create')
 
         params: Dict[str, str] = StatusesTest.VALID_DATA.copy()
 
         response: HttpResponse = self.client.post(ROUTE, data=params)
         self.assertTrue(Status.objects.get(id=4))
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_STATUSES)
+        self.assertRedirects(response, reverse_lazy('statuses'))
 
     # UPDATE VIEW TESTING
 
     def test_status_update_view(self) -> None:
-        ROUTE = reverse_lazy(UPDATE_STATUS, args=[self.status1.id])
+        ROUTE = reverse_lazy('status_update', args=[self.status1.id])
 
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_UPDATE)
+        self.assertTemplateUsed(response, template_name='statuses/status_form.html')
 
     def test_status_update(self) -> None:
-        ROUTE = reverse_lazy(UPDATE_STATUS, args=[self.status1.id])
+        ROUTE = reverse_lazy('status_update', args=[self.status1.id])
 
         original_objs_count: int = len(Status.objects.all())
         params: Dict[str, str] = StatusesTest.VALID_DATA
@@ -138,7 +135,7 @@ class StatusesTest(TestCase):
         final_objs_count: int = len(Status.objects.all())
         self.assertTrue(final_objs_count == original_objs_count)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_STATUSES)
+        self.assertRedirects(response, reverse_lazy('statuses'))
 
         updated_status: Status = Status.objects.get(id=self.status1.id)
         self.assertEqual(updated_status.name, params['name'])
@@ -146,14 +143,14 @@ class StatusesTest(TestCase):
     # DELETE VIEW TESTING
 
     def test_status_delete_view(self) -> None:
-        ROUTE = reverse_lazy(DELETE_STATUS, args=[self.status1.id])
+        ROUTE = reverse_lazy('status_delete', args=[self.status1.id])
 
         response: HttpResponse = self.client.get(ROUTE)
         self.assertEqual(response.status_code, HTTPStatus.OK)
-        self.assertTemplateUsed(response, template_name=TEMPLATE_DELETE)
+        self.assertTemplateUsed(response, template_name='statuses/status_confirm_delete.html')
 
     def test_status_delete(self) -> None:
-        ROUTE = reverse_lazy(DELETE_STATUS, args=[self.status1.id])
+        ROUTE = reverse_lazy('status_delete', args=[self.status1.id])
 
         original_objs_count: int = len(Status.objects.all())
 
@@ -161,6 +158,6 @@ class StatusesTest(TestCase):
         final_objs_count: int = len(Status.objects.all())
         self.assertTrue(final_objs_count == original_objs_count - 1)
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
-        self.assertRedirects(response, REVERSE_STATUSES)
+        self.assertRedirects(response, reverse_lazy('statuses'))
         with self.assertRaises(ObjectDoesNotExist):
             Status.objects.get(id=self.status1.id)
