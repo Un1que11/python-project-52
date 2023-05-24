@@ -10,7 +10,7 @@ class UserRegistrationForm(UserCreationForm):
         required=True, label=_('First Name'), help_text=_('Required. Please enter your real name.')
     )
     last_name = forms.CharField(
-            required=True, label=_('Last Name'), help_text=_('Required. Please enter your real surname.')  # noqa: E501
+        required=True, label=_('Last Name'), help_text=_('Required. Please enter your real surname.')  # noqa: E501
     )
 
     class Meta(UserCreationForm.Meta):
