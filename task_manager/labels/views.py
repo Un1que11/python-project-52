@@ -16,7 +16,7 @@ class LabelsListView(AuthorizationPermissionMixin, ListView):
             'page_title': _('Labels'),
             'page_description': _('List of Task Manager Labels.'),
             'page_h1': _('Labels')
-            }
+        }
 
 
 class LabelCreateView(AuthorizationPermissionMixin,
