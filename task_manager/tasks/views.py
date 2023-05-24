@@ -20,11 +20,11 @@ class TasksListView(AuthorizationPermissionMixin, FilterView):
     model: Type[Task] = Task
     context_object_name: str = 'tasks'
     extra_context: Dict = {
-            'page_title': _('Tasks'),
-            'page_description': _('Liste of Task Manager Tasks.'),
-            'page_h1': _('Tasks'),
-            'button_text': _('Search')
-            }
+        'page_title': _('Tasks'),
+        'page_description': _('Liste of Task Manager Tasks.'),
+        'page_h1': _('Tasks'),
+        'button_text': _('Search')
+    }
     filterset_class: Type[TasksFilter] = TasksFilter
 
 
@@ -33,11 +33,11 @@ class TaskCreateView(AuthorizationPermissionMixin,
     '''Create a task.'''
     model: Type[Task] = Task
     extra_context: Dict = {
-            'page_title': _('Task creation'),
-            'page_description': _('Task Creation on Task Manager.'),
-            'page_h1': _('Create task'),
-            'button_text': _('Create')
-            }
+        'page_title': _('Task creation'),
+        'page_description': _('Task Creation on Task Manager.'),
+        'page_h1': _('Create task'),
+        'button_text': _('Create')
+    }
     fields: Tuple = ('name', 'status', 'description', 'executor', 'labels')
     success_url = reverse_lazy('tasks')
     success_message: str = _('Task created successfully')
@@ -54,11 +54,11 @@ class TaskUpdateView(AuthorizationPermissionMixin,
     '''Change a task.'''
     model: Type[Task] = Task
     extra_context: Dict = {
-            'page_title': _('Task editing'),
-            'page_description': _('Task editing on Task Manager.'),
-            'page_h1': _('Change task'),
-            'button_text': _('Update')
-            }
+        'page_title': _('Task editing'),
+        'page_description': _('Task editing on Task Manager.'),
+        'page_h1': _('Change task'),
+        'button_text': _('Update')
+    }
     fields: Tuple = ('name', 'status', 'description', 'executor', 'labels')
     success_url = reverse_lazy('tasks')
     success_message: str = _('Task changed successfully')
@@ -70,11 +70,11 @@ class TaskDeleteView(AuthorizationPermissionMixin,
     model: Type[Task] = Task
     context_object_name: str = 'task'
     extra_context: Dict = {
-            'page_title': _('Task deleting'),
-            'page_description': _('Task deleting on Task Manager.'),
-            'page_h1': _('Delete task'),
-            'button_text': _('Yes, delete')
-            }
+        'page_title': _('Task deleting'),
+        'page_description': _('Task deleting on Task Manager.'),
+        'page_h1': _('Delete task'),
+        'button_text': _('Yes, delete')
+    }
     success_url = reverse_lazy('tasks')
     success_message: str = _('Task deleted successfully')
 
@@ -91,7 +91,7 @@ class TaskDeleteView(AuthorizationPermissionMixin,
 class TaskDetailView(AuthorizationPermissionMixin, DetailView):
     model: Type[Task] = Task
     extra_context: Dict = {
-            'page_title': _('Task view'),
-            'page_description': _('Task detail view on Task Manager.'),
-            'page_h1': _('Task view')
-            }
+        'page_title': _('Task view'),
+        'page_description': _('Task detail view on Task Manager.'),
+        'page_h1': _('Task view')
+    }

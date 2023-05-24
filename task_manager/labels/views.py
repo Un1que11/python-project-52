@@ -13,9 +13,9 @@ class LabelsListView(AuthorizationPermissionMixin, ListView):
     model: Type[Label] = Label
     context_object_name: str = 'labels'
     extra_context: Dict = {
-            'page_title': _('Labels'),
-            'page_description': _('List of Task Manager Labels.'),
-            'page_h1': _('Labels')
+        'page_title': _('Labels'),
+        'page_description': _('List of Task Manager Labels.'),
+        'page_h1': _('Labels')
     }
 
 
@@ -24,10 +24,10 @@ class LabelCreateView(AuthorizationPermissionMixin,
     '''Create a label.'''
     model: Type[Label] = Label
     extra_context: Dict = {
-            'page_title': _('Label creation'),
-            'page_description': _('Label Creation on Task Manager.'),
-            'page_h1': _('Create label'),
-            'button_text': _('Create')
+        'page_title': _('Label creation'),
+        'page_description': _('Label Creation on Task Manager.'),
+        'page_h1': _('Create label'),
+        'button_text': _('Create')
     }
     fields: Tuple = ('name',)
     success_url = reverse_lazy('labels')
@@ -39,10 +39,10 @@ class LabelUpdateView(AuthorizationPermissionMixin,
     '''Change a label.'''
     model: Type[Label] = Label
     extra_context: Dict = {
-            'page_title': _('Label editing'),
-            'page_description': _('Label editing on Task Manager.'),
-            'page_h1': _('Change label'),
-            'button_text': _('Update')
+        'page_title': _('Label editing'),
+        'page_description': _('Label editing on Task Manager.'),
+        'page_h1': _('Change label'),
+        'button_text': _('Update')
     }
     fields: Tuple = ('name',)
     success_url = reverse_lazy('labels')
@@ -55,10 +55,10 @@ class LabelDeleteView(AuthorizationPermissionMixin,
     model: Type[Label] = Label
     context_object_name: str = 'label'
     extra_context: Dict = {
-            'page_title': _('Label deleting'),
-            'page_description': _('Label deleting on Task Manager.'),
-            'page_h1': _('Delete label'),
-            'button_text': _('Yes, delete')
+        'page_title': _('Label deleting'),
+        'page_description': _('Label deleting on Task Manager.'),
+        'page_h1': _('Delete label'),
+        'button_text': _('Yes, delete')
     }
     success_url = reverse_lazy('labels')
     success_message: str = _('Label deleted successfully')

@@ -16,21 +16,21 @@ class UsersListView(ListView):
     model: Type[User] = User
     context_object_name: str = 'users'
     extra_context: Dict = {
-            'page_title': _('Users'),
-            'page_description': _('List of Task Manager Users.'),
-            'page_h1': _('Users')
-            }
+        'page_title': _('Users'),
+        'page_description': _('List of Task Manager Users.'),
+        'page_h1': _('Users')
+    }
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     '''Create a user.'''
     model: Type[User] = User
     extra_context: Dict = {
-            'page_title': _('Registration'),
-            'page_description': _('User Registration on Task Manager.'),
-            'page_h1': _('Registration'),
-            'button_text': _('Register')
-            }
+        'page_title': _('Registration'),
+        'page_description': _('User Registration on Task Manager.'),
+        'page_h1': _('Registration'),
+        'button_text': _('Register')
+    }
     form_class: Type[BaseForm] = UserRegistrationForm
     success_url = reverse_lazy('login')
     success_message: str = _('User successfully registered')
@@ -41,11 +41,11 @@ class UserUpdateView(ModifyPermissionMixin, LoginRequiredMixin,
     '''Change a user.'''
     model: Type[User] = User
     extra_context: Dict = {
-            'page_title': _('User editing'),
-            'page_description': _('User editing on Task Manager.'),
-            'page_h1': _('User change'),
-            'button_text': _('Change')
-            }
+        'page_title': _('User editing'),
+        'page_description': _('User editing on Task Manager.'),
+        'page_h1': _('User change'),
+        'button_text': _('Change')
+    }
     form_class: Type[BaseForm] = UserEditingForm
     success_url = reverse_lazy('users')
     success_message: str = _('User successfully updated')
@@ -59,11 +59,11 @@ class UserDeleteView(ModifyPermissionMixin, LoginRequiredMixin,
     model: Type[User] = User
     context_object_name: str = 'user'
     extra_context: Dict = {
-            'page_title': _('User deleting'),
-            'page_description': _('User deleting on Task Manager.'),
-            'page_h1': _('Deleting a user'),
-            'button_text': _('Yes, delete')
-            }
+        'page_title': _('User deleting'),
+        'page_description': _('User deleting on Task Manager.'),
+        'page_h1': _('Deleting a user'),
+        'button_text': _('Yes, delete')
+    }
     success_url = reverse_lazy('users')
     success_message: str = _('User successfully deleted')
     unpermission_url = reverse_lazy('users')

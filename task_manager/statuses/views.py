@@ -13,10 +13,10 @@ class StatusesListView(AuthorizationPermissionMixin, ListView):
     model: Type[Status] = Status
     context_object_name: str = 'statuses'
     extra_context: Dict = {
-            'page_title': _('Statuses'),
-            'page_description': _('List of Task Manager Statuses.'),
-            'page_h1': _('Statuses')
-            }
+        'page_title': _('Statuses'),
+        'page_description': _('List of Task Manager Statuses.'),
+        'page_h1': _('Statuses')
+    }
 
 
 class StatusCreateView(AuthorizationPermissionMixin,
@@ -24,11 +24,11 @@ class StatusCreateView(AuthorizationPermissionMixin,
     '''Create a status.'''
     model: Type[Status] = Status
     extra_context: Dict = {
-            'page_title': _('Status creation'),
-            'page_description': _('Status Creation on Task Manager.'),
-            'page_h1': _('Create status'),
-            'button_text': _('Create')
-            }
+        'page_title': _('Status creation'),
+        'page_description': _('Status Creation on Task Manager.'),
+        'page_h1': _('Create status'),
+        'button_text': _('Create')
+    }
     fields: Tuple = ('name',)
     success_url = reverse_lazy('statuses')
     success_message: str = _('Status created successfully')
@@ -39,11 +39,11 @@ class StatusUpdateView(AuthorizationPermissionMixin,
     '''Change a status.'''
     model: Type[Status] = Status
     extra_context: Dict = {
-            'page_title': _('Status editing'),
-            'page_description': _('Status editing on Task Manager.'),
-            'page_h1': _('Change Status'),
-            'button_text': _('Update')
-            }
+        'page_title': _('Status editing'),
+        'page_description': _('Status editing on Task Manager.'),
+        'page_h1': _('Change Status'),
+        'button_text': _('Update')
+    }
     fields: Tuple = ('name',)
     success_url = reverse_lazy('statuses')
     success_message: str = _('Status changed successfully')
@@ -54,11 +54,11 @@ class StatusDeleteView(AuthorizationPermissionMixin,
     '''Delete a status.'''
     model: Type[Status] = Status
     extra_context: Dict = {
-            'page_title': _('Status deleting'),
-            'page_description': _('Status deleting on Task Manager.'),
-            'page_h1': _('Delete status'),
-            'button_text': _('Yes, delete')
-            }
+        'page_title': _('Status deleting'),
+        'page_description': _('Status deleting on Task Manager.'),
+        'page_h1': _('Delete status'),
+        'button_text': _('Yes, delete')
+    }
     context_object_name: str = 'status'
     success_url = reverse_lazy('statuses')
     success_message: str = _('Status deleted successfully')
