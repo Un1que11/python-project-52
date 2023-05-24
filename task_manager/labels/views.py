@@ -16,7 +16,7 @@ class LabelsListView(AuthorizationPermissionMixin, ListView):
             'page_title': _('Labels'),
             'page_description': _('List of Task Manager Labels.'),
             'page_h1': _('Labels')
-        }
+    }
 
 
 class LabelCreateView(AuthorizationPermissionMixin,
@@ -28,7 +28,7 @@ class LabelCreateView(AuthorizationPermissionMixin,
             'page_description': _('Label Creation on Task Manager.'),
             'page_h1': _('Create label'),
             'button_text': _('Create')
-            }
+    }
     fields: Tuple = ('name',)
     success_url = reverse_lazy('labels')
     success_message: str = _('Label created successfully')
@@ -43,7 +43,7 @@ class LabelUpdateView(AuthorizationPermissionMixin,
             'page_description': _('Label editing on Task Manager.'),
             'page_h1': _('Change label'),
             'button_text': _('Update')
-            }
+    }
     fields: Tuple = ('name',)
     success_url = reverse_lazy('labels')
     success_message: str = _('Label changed successfully')
@@ -59,7 +59,7 @@ class LabelDeleteView(AuthorizationPermissionMixin,
             'page_description': _('Label deleting on Task Manager.'),
             'page_h1': _('Delete label'),
             'button_text': _('Yes, delete')
-            }
+    }
     success_url = reverse_lazy('labels')
     success_message: str = _('Label deleted successfully')
     protected_data_url = reverse_lazy('labels')
