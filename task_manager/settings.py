@@ -107,8 +107,8 @@ DATABASES = {
     }
 }
 
-DATABASES["default"] = dj_database_url.config(conn_max_age=500)
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Deployment:
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Deployment
