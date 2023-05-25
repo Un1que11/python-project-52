@@ -4,7 +4,7 @@ on: push
 
 env:
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DEBUG: ${{ secrets.DEBUG }}
   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
 jobs:
